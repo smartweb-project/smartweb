@@ -11,6 +11,15 @@ const IndexPage: React.FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const loc = useLocation()
+  const nav = useNavigate()
+  useEffect(()=>{
+    if (loc.pathname === '/'){
+      console.log('首页')
+      nav(`/projects`)
+    }
+  },[loc.pathname])
+
   return (
     <Layout>
       <Sider trigger={null} theme={'light'} width={260} style={{
@@ -28,18 +37,13 @@ const IndexPage: React.FC = () => {
             {
               key: '1',
               icon: <UserOutlined />,
-              label: 'nav 1',
+              label: 'Projects',
             },
             {
               key: '2',
               icon: <VideoCameraOutlined />,
-              label: 'nav 2',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3',
-            },
+              label: 'Settings',
+            }
           ]}
         />
       </Sider>
