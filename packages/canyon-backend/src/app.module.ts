@@ -9,12 +9,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import {ProjectModule} from "./project/project.module";
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
     AuthModule,
     UserModule,
+    ProjectModule,
     PrismaModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../canyon-platform', 'dist'),

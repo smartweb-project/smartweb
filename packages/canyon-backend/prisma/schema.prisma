@@ -20,7 +20,7 @@ model User {
   favor        String
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp(3)
 
-  @@map("user")
+  @@map("smartweb_user")
 }
 
 model Project {
@@ -34,5 +34,5 @@ model Project {
   createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp(3)
   updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp(3)
 
-  @@map("project")
+  @@map("smartweb_project")
 }

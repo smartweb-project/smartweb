@@ -20,12 +20,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type RetrieveProjectModel {
+  id: ID!
+  name: String!
+  pathWithNamespace: String!
+  description: String!
+}
+
 type Query {
   """提供执行此查询的用户的详细信息（通过授权 Bearer 标头）"""
   me: User!
 
   """列出所有用户"""
   listUser: [User!]!
+
+  """根据ID获取Project"""
+  retrieveProject: RetrieveProjectModel!
 }
 
 type Mutation {
