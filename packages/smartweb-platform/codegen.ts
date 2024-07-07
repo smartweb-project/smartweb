@@ -2,7 +2,7 @@
 import { type CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: '../../packages/canyon-backend/*.gql',
+  schema: '../../packages/smartweb-backend/*.gql',
   documents: ['src/**/*.graphql'],
   generates: {
     './src/helpers/backend/gen/': {

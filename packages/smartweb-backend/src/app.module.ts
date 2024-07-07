@@ -19,7 +19,7 @@ import {ProjectModule} from "./project/project.module";
     ProjectModule,
     PrismaModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../canyon-platform', 'dist'),
+      rootPath: join(__dirname, '../../smartweb-platform', 'dist'),
       exclude: ['/graphql/(.*)'],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
