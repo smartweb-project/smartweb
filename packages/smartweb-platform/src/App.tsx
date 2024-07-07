@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 
 import routes from '~react-pages';
 import zhCN from "antd/es/locale/zh_CN";
+import eWrouters from "./routers";
 
 const { darkAlgorithm } = theme;
 const App = () => {
@@ -18,7 +19,7 @@ const App = () => {
           algorithm: isDark ? [darkAlgorithm] : [],
         }}
       >
-        {useRoutes(routes)}
+        {useRoutes(routes.concat(eWrouters))}
       </ConfigProvider>
     </div>
   );

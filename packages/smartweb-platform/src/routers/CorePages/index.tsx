@@ -1,12 +1,17 @@
-import React from 'react';
-import {UploadOutlined, UserOutlined, VideoCameraOutlined,} from '@ant-design/icons';
-import {Divider, Layout, Menu, theme} from 'antd';
-import {Outlet} from "react-router-dom";
-// import {mockData} from "./mockData.ts";
+import React, { useState } from 'react';
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+import {Button, Divider, Layout, Menu, theme} from 'antd';
+import {mockData} from "./mockData.ts";
 
 const { Header, Sider, Content } = Layout;
 
-const IndexPage: React.FC = () => {
+const CorePages: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -20,6 +25,8 @@ const IndexPage: React.FC = () => {
           borderBottom: '1px solid rgb(232, 232, 232)',
         }} className={'p-5'} >
           <a href={'/'} style={{color:'unset',textDecoration:'unset'}}>小飞机</a>
+          <Divider type="vertical" />
+          国内经搜
         </div>
         <Menu
           mode="inline"
@@ -55,11 +62,14 @@ const IndexPage: React.FC = () => {
             overflow:'hidden'
           }}
         >
-          <Outlet/>
+          <iframe
+            srcDoc={mockData.data.retrieveProject.coverage}
+            style={{border: "none", width: "100%", height: "200vh"}}
+          />
         </Content>
       </Layout>
     </Layout>
   );
 };
 
-export default IndexPage;
+export default CorePages;

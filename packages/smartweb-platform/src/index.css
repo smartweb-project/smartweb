@@ -9,7 +9,7 @@
   font-style: normal;
 }
 
-.ant-menu-light.ant-menu-root.ant-menu-vertical{
+.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light{
   border-inline-end:none !important;
 }
 
