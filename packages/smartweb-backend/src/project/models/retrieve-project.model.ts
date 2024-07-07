@@ -9,8 +9,5 @@ export class RetrieveProjectModel {
   name: string;
 
   @Field(() => String)
-  pathWithNamespace: string;
-
-  @Field(() => String)
   description: string;
 }
