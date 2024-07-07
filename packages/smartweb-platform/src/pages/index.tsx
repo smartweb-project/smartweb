@@ -2,11 +2,14 @@ import React from 'react';
 import {UploadOutlined, UserOutlined, VideoCameraOutlined,} from '@ant-design/icons';
 import {Divider, Layout, Menu, theme} from 'antd';
 import {Outlet} from "react-router-dom";
+import {useQuery} from "@apollo/client";
+import {MeDocument} from "../helpers/backend/gen/graphql.ts";
 // import {mockData} from "./mockData.ts";
 
 const { Header, Sider, Content } = Layout;
 
 const IndexPage: React.FC = () => {
+  const {data} = useQuery(MeDocument)
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -46,6 +49,7 @@ const IndexPage: React.FC = () => {
             }
           ]}
         />
+        {data?.me.email}
       </Sider>
       <Layout style={{
         backgroundColor:'rgb(251, 252, 253)'

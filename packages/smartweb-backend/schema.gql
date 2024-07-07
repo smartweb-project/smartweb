@@ -23,7 +23,6 @@ scalar DateTime
 type RetrieveProjectModel {
   id: ID!
   name: String!
-  pathWithNamespace: String!
   description: String!
 }
 
