@@ -1,0 +1,5 @@
+mutation CreatePage($projectID: String!,$content: String!) {
+  createPage(projectID: $projectID,content: $content) {
+    id
+  }
+}

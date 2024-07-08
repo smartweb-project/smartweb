@@ -1,0 +1,5 @@
+query RetrievePage($pageID: ID!) {
+  retrievePage(pageID: $pageID) {
+    content
+  }
+}

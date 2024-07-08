@@ -1,4 +1,4 @@
-import {Table} from "antd";
+import {Button, Table} from "antd";
 
 const ProjectsPage = () => {
   const dataSource = [
@@ -37,6 +37,7 @@ const ProjectsPage = () => {
   ]
   return <div>
     <h1>Projects</h1>
+    <Button type={'primary'}>创建</Button>
     <Table columns={columns} dataSource={dataSource}/>
   </div>
 }

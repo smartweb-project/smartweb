@@ -10,6 +10,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import {ProjectModule} from "./project/project.module";
+import {PageModule} from "./page/page.module";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import {ProjectModule} from "./project/project.module";
     AuthModule,
     UserModule,
     ProjectModule,
+    PageModule,
     PrismaModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../smartweb-platform', 'dist'),

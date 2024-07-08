@@ -26,6 +26,17 @@ type RetrieveProjectModel {
   description: String!
 }
 
+type RetrievePageModel {
+  """创建时间"""
+  createdAt: DateTime!
+
+  """更新时间"""
+  updatedAt: DateTime!
+  id: ID!
+  projectID: String!
+  content: String!
+}
+
 type Query {
   """提供执行此查询的用户的详细信息（通过授权 Bearer 标头）"""
   me: User!
@@ -35,9 +46,18 @@ type Query {
 
   """根据ID获取Project"""
   retrieveProject: RetrieveProjectModel!
+
+  """获取一个页面"""
+  retrievePage(pageID: ID!): RetrievePageModel!
 }
 
 type Mutation {
   """关注项目"""
   favorProject(projectID: ID!, favored: Boolean!): User!
+
+  """创建一个新页面"""
+  createPage(projectID: String!, content: String!): RetrievePageModel!
+
+  """更新一个新页面"""
+  updatePage(pageID: ID!, projectID: String!, content: String!): RetrievePageModel!
 }

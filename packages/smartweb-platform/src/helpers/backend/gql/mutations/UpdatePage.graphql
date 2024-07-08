@@ -1,0 +1,5 @@
+mutation UpdatePage($pageID:ID!,$projectID: String!,$content: String!) {
+  updatePage(pageID: $pageID,projectID: $projectID,content: $content) {
+    id
+  }
+}

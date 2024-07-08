@@ -64,7 +64,7 @@ const CorePages: React.FC = () => {
         >
           <iframe
             srcDoc={mockData.data.retrieveProject.coverage}
-            style={{border: "none", width: "100%", height: "200vh"}}
+            style={{border: "none", width: "100%", height: "100vh"}}
           />
         </Content>
       </Layout>
