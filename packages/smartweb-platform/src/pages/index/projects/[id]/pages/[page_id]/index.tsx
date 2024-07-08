@@ -2,7 +2,7 @@ import {Editor} from "@monaco-editor/react";
 import {Button} from "antd";
 import {useMutation, useQuery} from "@apollo/client";
 import {RetrievePageDocument, UpdatePageDocument} from "../../../../../../helpers/backend/gen/graphql.ts";
-import {ProjectOutlined} from "@ant-design/icons";
+import {OpenAIOutlined, ProjectOutlined} from "@ant-design/icons";
 import {Allotment} from "allotment";
 // import CorePages from "../../../../../../routers/CorePages";
 // import {mockData} from "../../../../../../routers/CorePages/mockData.ts";
@@ -41,12 +41,25 @@ const PageID = ()=>{
         })
       }}>保存</Button>
     </div>
-    <div className={'flex bg-white'} style={{border:'1px solid rgb(232, 232, 232)'}}>
+    <div style={{border:'1px solid rgb(232, 232, 232)',height:'calc(100vh - 120px)'}}>
       <Allotment>
         <div className={'w-full p-5'}>
-          <h3>编辑器</h3>
+
+          <div className={'flex justify-between'}>
+            <h3>编辑器</h3>
+            <OpenAIOutlined style={{fontSize: '18px'}} className={'mb-2 cursor-pointer'}/>
+          </div>
           <Editor value={data?.retrievePage.content || ''} options={{
+            fontSize:14,
             minimap: {enabled: false},
+            fontFamily: 'IBMPlexMono',
+            // lineNumbers: 'off',
+            // readOnly: true,
+            folding: false,
+            // minimap: { enabled: false },
+            scrollBeyondLastLine: false,
+            showUnused: false,
+            // fontFamily: 'IBMPlexMono',
           }} language={'html'} height={'100vh'} onChange={(v) => {
             setCode(v)
           }}/>

@@ -3,7 +3,7 @@ import './useWorker.ts';
 import './i18n.ts';
 import 'antd/dist/reset.css';
 import './index.css';
-
+import "allotment/dist/style.css";
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { message } from 'antd';
