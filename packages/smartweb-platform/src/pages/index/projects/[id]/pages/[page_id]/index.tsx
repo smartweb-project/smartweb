@@ -27,10 +27,10 @@ const PageID = () => {
     <div className={'p-1'}>
       <div className={'mb-2 flex justify-between'}>
         <div style={{ fontSize: '16px' }}>
-          <ProjectOutlined />
-          IBU国际机票 / <ProjectOutlined />
-          安徽省-马鞍山市 / <ProjectOutlined />
-          广告位配置
+          {/*<ProjectOutlined />*/}
+          景点搜索 /
+          测试页面 /
+          测试
         </div>
         {/*<div className={'flex flex-col gap-2'} style={{fontSize:'16px'}}>*/}
         {/*  <span>项目: IBU国际机票</span>*/}
@@ -56,7 +56,7 @@ const PageID = () => {
       </div>
       <div style={{ border: '1px solid rgb(232, 232, 232)', height: 'calc(100vh - 120px)' }}>
         <Allotment>
-          <div className={'w-full p-5'}>
+          <div className={'w-full p-5  bg-white'}>
             <div className={'flex justify-between'}>
               <h3>编辑器</h3>
               <OpenAIOutlined style={{ fontSize: '18px' }} className={'mb-2 cursor-pointer'} />
@@ -82,7 +82,7 @@ const PageID = () => {
               }}
             />
           </div>
-          <div className={'w-full p-5'}>
+          <div className={'w-full p-5  bg-white'}>
             <h3>预览</h3>
             <iframe srcDoc={code} style={{ border: 'none', width: '100%', height: '100vh' }} />
           </div>

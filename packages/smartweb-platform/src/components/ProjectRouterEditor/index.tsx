@@ -1,7 +1,7 @@
 import {
   ArrowRightOutlined,
   EllipsisOutlined,
-  FileOutlined,
+  FileOutlined, PlusOutlined, PlusSquareFilled,
   UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Button, Input, Menu, MenuProps, Tree, type TreeDataNode, type TreeProps } from 'antd';
@@ -168,16 +168,16 @@ const ProjectRouterEditor = ({ value = '[]', onChange = () => {} }) => {
           <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
             面包屑
           </div>
-          <div className={'mb-3'}>安徽省 / 合肥市 / 庐江县</div>
+          <div className={'mb-3'}>景点搜索 / 测试页面 / 测试</div>
 
           <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
             路径
           </div>
-          <div className={'mb-3'}>/anhuisheng/hefeishi/lujingaxian</div>
+          <div className={'mb-3'}>/sightseeing-search/test-page/test</div>
 
           <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
             编辑菜单
-            <Button
+            <PlusOutlined
               onClick={() => {
                 setTreeData(
                   treeData.concat({
@@ -191,7 +191,7 @@ const ProjectRouterEditor = ({ value = '[]', onChange = () => {} }) => {
               }}
             >
               新建目录
-            </Button>
+            </PlusOutlined>
           </div>
 
           <Tree

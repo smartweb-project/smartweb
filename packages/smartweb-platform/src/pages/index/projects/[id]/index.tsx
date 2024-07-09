@@ -37,14 +37,23 @@ const PageDetail = () => {
     <div className={'p-2 w-[1200px] m-auto'}>
       <h2 className={'mb-10 flex justify-between'}>
         项目配置
-        <Button
-          type={'primary'}
-          onClick={() => {
-            form.submit();
-          }}
-        >
-          保存
-        </Button>
+        <Space>
+          <Button
+            type={'primary'}
+            onClick={() => {
+              form.submit();
+            }}
+          >
+            保存
+          </Button>
+          <Button
+            onClick={() => {
+              form.submit();
+            }}
+          >
+            站点
+          </Button>
+        </Space>
       </h2>
       {retrieveProjectDocumentData && (
         <Form

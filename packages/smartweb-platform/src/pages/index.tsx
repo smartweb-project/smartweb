@@ -38,6 +38,7 @@ const IndexPage: React.FC = () => {
           style={{ fontSize: '18px', borderBottom: '1px solid rgb(232, 232, 232)' }}
           className={'p-5'}
         >
+          <img src='/logo.svg' alt='' className={'w-[24px] mr-2'} />
           <a href={'/'} style={{ color: 'unset', textDecoration: 'unset' }}>
             小飞机
           </a>
