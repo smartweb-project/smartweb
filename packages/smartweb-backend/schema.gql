@@ -24,6 +24,7 @@ type RetrieveProjectModel {
   id: ID!
   name: String!
   description: String!
+  router: String!
 }
 
 type RetrievePageModel {

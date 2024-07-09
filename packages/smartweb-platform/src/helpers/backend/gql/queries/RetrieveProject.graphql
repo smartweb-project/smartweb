@@ -2,5 +2,6 @@ query RetrieveProject($projectID: ID!) {
   retrieveProject(projectID: $projectID) {
     name
     description
+    router
   }
 }

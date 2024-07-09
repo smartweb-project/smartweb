@@ -1,0 +1,5 @@
+mutation UpdateProject($projectID: ID!,$name: String!,$router: String!) {
+  updateProject(projectID: $projectID,name: $name,router: $router) {
+    id
+  }
+}

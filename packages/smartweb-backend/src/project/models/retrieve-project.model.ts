@@ -10,4 +10,7 @@ export class RetrieveProjectModel {
 
   @Field(() => String)
   description: string;
+
+  @Field(() => String)
+  router: string;
 }

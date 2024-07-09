@@ -1,5 +1,0 @@
-mutation UpdateProject($projectID: ID!,$name: String!) {
-  updateProject(projectID: $projectID,name: $name) {
-    id
-  }
-}

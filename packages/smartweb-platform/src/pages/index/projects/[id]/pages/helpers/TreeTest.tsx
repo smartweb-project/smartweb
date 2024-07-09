@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import {MenuProps, Tree} from 'antd';
+import { DownOutlined, EllipsisOutlined, SmileOutlined } from '@ant-design/icons';
 import type { TreeDataNode, TreeProps } from 'antd';
-import {DownOutlined, EllipsisOutlined, SmileOutlined} from "@ant-design/icons";
-
+import { MenuProps, Tree } from 'antd';
+import React, { useState } from 'react';
 
 // 下啦
 const items: MenuProps['items'] = [
-
   {
     key: '1',
     label: '编辑页面',
@@ -22,14 +20,14 @@ const items: MenuProps['items'] = [
   },
 ];
 const onClick = (e: any) => {
-  console.log(e)
-  window.location.href = '/projects/1/pages/1'
-}
+  console.log(e);
+  window.location.href = '/projects/1/pages/1';
+};
 const XIala: React.FC = () => (
-  <Dropdown trigger={['click']} menu={{ items,onClick }}>
+  <Dropdown trigger={['click']} menu={{ items, onClick }}>
     <a onClick={(e) => e.preventDefault()}>
       <Space>
-        <EllipsisOutlined style={{fontSize:'18px'}} />
+        <EllipsisOutlined style={{ fontSize: '18px' }} />
       </Space>
     </a>
   </Dropdown>
@@ -140,10 +138,12 @@ const App: React.FC = () => {
       onDrop={onDrop}
       treeData={gData}
       titleRender={(nodeData) => {
-        return <div className={'w-full flex justify-between'}>
-          广告位配置
-          <XIala></XIala>
-        </div>;
+        return (
+          <div className={'w-full flex justify-between'}>
+            广告位配置
+            <XIala></XIala>
+          </div>
+        );
       }}
     />
   );

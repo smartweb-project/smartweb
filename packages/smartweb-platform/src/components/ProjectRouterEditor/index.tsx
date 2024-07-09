@@ -1,66 +1,166 @@
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { Menu, MenuProps } from 'antd';
+import {
+  ArrowRightOutlined,
+  EllipsisOutlined,
+  FileOutlined,
+  UnorderedListOutlined,
+} from '@ant-design/icons';
+import { Button, Input, Menu, MenuProps, Tree, type TreeDataNode, type TreeProps } from 'antd';
+import React from 'react';
 
 import TreeTest from '../../pages/index/projects/[id]/pages/helpers/TreeTest.tsx';
+import { items2 } from './mockData.ts';
 type MenuItem = Required<MenuProps>['items'][number];
+interface TreeNode {
+  title: string;
+  key: string;
+  id: string;
+  nodeType: string;
+  children?: TreeNode[];
+}
 
-const items: MenuItem[] = [
+// 下啦
+const items: MenuProps['items'] = [
   {
-    key: 'sub1',
-    label: 'Navigation One',
-    // icon: <MailOutlined />,
-    children: [
-      {
-        key: 'g1',
-        label: 'Item 1',
-        children: [
-          { key: '1', label: 'Option 1' },
-          { key: '2', label: 'Option 2' },
-        ],
-      },
-      {
-        key: 'g2',
-        label: 'Item 2',
-        children: [
-          { key: '3', label: 'Option 3' },
-          { key: '4', label: 'Option 4' },
-        ],
-      },
-    ],
+    key: '0',
+    label: '新增页面',
   },
   {
-    key: 'sub2',
-    label: 'Navigation Two',
-    // icon: <AppstoreOutlined />,
-    children: [
-      { key: '5', label: 'Option 5' },
-      { key: '6', label: 'Option 6' },
-      {
-        key: 'sub3',
-        label: 'Submenu',
-        children: [
-          { key: '7', label: 'Option 7' },
-          { key: '8', label: 'Option 8' },
-        ],
-      },
-    ],
+    key: '1',
+    label: '编辑页面',
   },
   {
-    type: 'divider',
+    key: '2',
+    label: '重命名',
   },
   {
-    key: 'sub4',
-    label: 'Navigation Three',
-    // icon: <SettingOutlined />,
-    children: [
-      { key: '9', label: 'Option 9' },
-      { key: '10', label: 'Option 10' },
-      { key: '11', label: 'Option 11' },
-      { key: '12', label: 'Option 12' },
-    ],
+    key: '4',
+    danger: true,
+    label: '删除',
   },
 ];
-const ProjectRouterEditor = () => {
+
+const ProjectRouterEditor = ({ value = '[]', onChange = () => {} }) => {
+  const [treeData, setTreeData] = useState<TreeNode[]>(JSON.parse(value));
+
+  useEffect(() => {
+    onChange(JSON.stringify(treeData));
+  }, [treeData]);
+
+  const onDrop: TreeProps['onDrop'] = (info) => {
+    setTreeData((prev) => {
+      const dropKey = info.node.key;
+      const dragKey = info.dragNode.key;
+      const dropPos = info.node.pos.split('-');
+      const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
+
+      const loop = (data, key, callback) => {
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].key === key) {
+            return callback(data[i], i, data);
+          }
+          if (data[i].children) {
+            loop(data[i].children, key, callback);
+          }
+        }
+      };
+      const data = [...prev];
+
+      // Find dragObject
+      let dragObj;
+      loop(data, dragKey, (item, index, arr) => {
+        arr.splice(index, 1);
+        dragObj = item;
+      });
+
+      if (!info.dropToGap) {
+        // Drop on the content
+        loop(data, dropKey, (item) => {
+          item.children = item.children || [];
+          // where to insert 示例添加到尾部，可以是随意位置
+          item.children.push(dragObj);
+        });
+      } else if (
+        (info.node.children || []).length > 0 && // Has children
+        info.node.expanded && // Is expanded
+        dropPosition === 1 // On the bottom gap
+      ) {
+        loop(data, dropKey, (item) => {
+          item.children = item.children || [];
+          // where to insert 示例添加到头部，可以是随意位置
+          item.children.unshift(dragObj);
+        });
+      } else {
+        let ar;
+        let i;
+        loop(data, dropKey, (item, index, arr) => {
+          ar = arr;
+          i = index;
+        });
+        if (dropPosition === -1) {
+          ar.splice(i, 0, dragObj);
+        } else {
+          ar.splice(i + 1, 0, dragObj);
+        }
+      }
+
+      return data;
+    });
+  };
+
+  const [isrename, setIsrename] = useState('');
+
+  const onClick = (e: any, treeNodeKey) => {
+    // console.log(e, treeNodeKey);
+    if (e.key === '2') {
+
+      // console.log()
+      setIsrename(treeNodeKey);
+    } else if (e.key === '0') {
+      setTreeData((prev) => {
+        return prev.map((item) => {
+          if (item.key === treeNodeKey) {
+            return {
+              ...item,
+              children: item.children
+                ? item.children.concat({
+                    title: '新建页面',
+                    key: Math.random().toString(),
+                    id: Math.random().toString(),
+                    nodeType: 'page',
+                  })
+                : [
+                    {
+                      title: '新建页面',
+                      key: Math.random().toString(),
+                      id: Math.random().toString(),
+                      nodeType: 'page',
+                    },
+                  ],
+            };
+          }
+          return item;
+        });
+      });
+    }
+    // window.location.href = '/projects/1/pages/1';
+  };
+  const XIala = ({ treeNodeKey }) => (
+    <Dropdown
+      trigger={['click']}
+      menu={{
+        items,
+        onClick: (e) => {
+          onClick(e, treeNodeKey);
+        },
+      }}
+    >
+      <a onClick={(e) => e.preventDefault()}>
+        <Space>
+          <EllipsisOutlined style={{ fontSize: '18px' }} />
+        </Space>
+      </a>
+    </Dropdown>
+  );
   return (
     <div>
       <div className={'flex'}>
@@ -77,8 +177,71 @@ const ProjectRouterEditor = () => {
 
           <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
             编辑菜单
+            <Button
+              onClick={() => {
+                setTreeData(
+                  treeData.concat({
+                    title: '新建目录',
+                    key: Math.random().toString(),
+                    id: Math.random().toString(),
+                    children: [],
+                    nodeType: 'dir',
+                  }),
+                );
+              }}
+            >
+              新建目录
+            </Button>
           </div>
-          <TreeTest />
+
+          <Tree
+            defaultExpandAll
+            className={'w-full'}
+            // defaultExpandedKeys={expandedKeys}
+            draggable
+            blockNode
+            // onDragEnter={onDragEnter}
+            // onDrop={onDrop}
+            onDrop={onDrop}
+            treeData={treeData}
+            titleRender={(nodeData) => {
+              return (
+                <div className={'w-full flex justify-between'}>
+                  <div className={'flex gap-2'}>
+                    {nodeData.nodeType === 'page' ? <FileOutlined /> : <UnorderedListOutlined />}
+                    {/*<UnorderedListOutlined />*/}
+                    {/*<FileOutlined />*/}
+                    {/*// @ts-ignore*/}
+                    {/*{isrename}*/}
+                    {isrename === nodeData.key ? (
+                      <Input
+                        defaultValue={nodeData.title}
+                        autoFocus
+                        onBlur={(v) => {
+                          console.log(v.target.value);
+                          setIsrename('');
+                          setTreeData((prev) => {
+                            return prev.map((item) => {
+                              if (item.key === nodeData.key) {
+                                return {
+                                  ...item,
+                                  title: v.target.value,
+                                };
+                              }
+                              return item;
+                            });
+                          });
+                        }}
+                      />
+                    ) : (
+                      nodeData.title || '无名'
+                    )}
+                  </div>
+                  <XIala treeNodeKey={nodeData.key} />
+                </div>
+              );
+            }}
+          />
         </div>
         <div className={'w-[240px]  flex items-center justify-center'}>
           <ArrowRightOutlined style={{ fontSize: '24px' }} />
@@ -93,7 +256,7 @@ const ProjectRouterEditor = () => {
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}
             mode='inline'
-            items={items}
+            items={items2}
           />
         </div>
       </div>

@@ -3,70 +3,14 @@ import { useMutation, useQuery } from '@apollo/client';
 import { Editor } from '@monaco-editor/react';
 import { Button, Input, Menu, MenuProps, Tree } from 'antd';
 
+import ProjectRouterEditor from '../../../../components/ProjectRouterEditor';
 import {
   RetrieveProjectDocument,
   UpdateProjectDocument,
 } from '../../../../helpers/backend/gen/graphql.ts';
 import TreeTest from './pages/helpers/TreeTest.tsx';
-import ProjectRouterEditor from "../../../../components/ProjectRouterEditor";
 type MenuItem = Required<MenuProps>['items'][number];
 
-const items: MenuItem[] = [
-  {
-    key: 'sub1',
-    label: 'Navigation One',
-    // icon: <MailOutlined />,
-    children: [
-      {
-        key: 'g1',
-        label: 'Item 1',
-        children: [
-          { key: '1', label: 'Option 1' },
-          { key: '2', label: 'Option 2' },
-        ],
-      },
-      {
-        key: 'g2',
-        label: 'Item 2',
-        children: [
-          { key: '3', label: 'Option 3' },
-          { key: '4', label: 'Option 4' },
-        ],
-      },
-    ],
-  },
-  {
-    key: 'sub2',
-    label: 'Navigation Two',
-    // icon: <AppstoreOutlined />,
-    children: [
-      { key: '5', label: 'Option 5' },
-      { key: '6', label: 'Option 6' },
-      {
-        key: 'sub3',
-        label: 'Submenu',
-        children: [
-          { key: '7', label: 'Option 7' },
-          { key: '8', label: 'Option 8' },
-        ],
-      },
-    ],
-  },
-  {
-    type: 'divider',
-  },
-  {
-    key: 'sub4',
-    label: 'Navigation Three',
-    // icon: <SettingOutlined />,
-    children: [
-      { key: '9', label: 'Option 9' },
-      { key: '10', label: 'Option 10' },
-      { key: '11', label: 'Option 11' },
-      { key: '12', label: 'Option 12' },
-    ],
-  },
-];
 const PageDetail = () => {
   const prm = useParams();
   const { data: retrieveProjectDocumentData } = useQuery(RetrieveProjectDocument, {
@@ -76,10 +20,12 @@ const PageDetail = () => {
   });
   const [updateProject] = useMutation(UpdateProjectDocument);
   const onFinish = (values) => {
+    console.log(values, 'values');
     updateProject({
       variables: {
         projectID: prm.id as string,
         name: values.username,
+        router: values.router,
       },
     }).then(() => {
       message.success('保存成功');
@@ -108,7 +54,10 @@ const PageDetail = () => {
           // labelCol={{ span: 8 }}
           // wrapperCol={{ span: 16 }}
           // style={{ maxWidth: 600 }}
-          initialValues={{ username: retrieveProjectDocumentData?.retrieveProject?.name }}
+          initialValues={{
+            username: retrieveProjectDocumentData?.retrieveProject?.name,
+            router: retrieveProjectDocumentData?.retrieveProject?.router,
+          }}
           onFinish={onFinish}
           // onFinishFailed={onFinishFailed}
           autoComplete='off'
@@ -124,9 +73,8 @@ const PageDetail = () => {
             <Input.TextArea />
           </Form.Item>
 
-          <Form.Item label={'菜单'}>
-            <ProjectRouterEditor></ProjectRouterEditor>
-
+          <Form.Item label={'菜单'} name='router'>
+            <ProjectRouterEditor />
           </Form.Item>
         </Form>
       )}
