@@ -1,15 +1,15 @@
-import {Injectable} from "@nestjs/common";
-import {PrismaService} from "../../prisma/prisma.service";
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
 export class CreatePageService {
   constructor(private readonly prisma: PrismaService) {}
-  async invoke(projectID,content) {
+  async invoke(projectID, content) {
     return this.prisma.page.create({
-      data:{
+      data: {
         projectID,
         content,
-      }
-    })
+      },
+    });
   }
 }

@@ -45,7 +45,10 @@ type Query {
   listUser: [User!]!
 
   """根据ID获取Project"""
-  retrieveProject: RetrieveProjectModel!
+  retrieveProject(projectID: ID!): RetrieveProjectModel!
+
+  """获取项目列表"""
+  listProject: [RetrieveProjectModel!]!
 
   """获取一个页面"""
   retrievePage(pageID: ID!): RetrievePageModel!
@@ -54,6 +57,9 @@ type Query {
 type Mutation {
   """关注项目"""
   favorProject(projectID: ID!, favored: Boolean!): User!
+
+  """创建一个新页面"""
+  createProject: String!
 
   """创建一个新页面"""
   createPage(projectID: String!, content: String!): RetrievePageModel!

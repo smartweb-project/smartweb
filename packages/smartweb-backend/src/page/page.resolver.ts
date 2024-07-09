@@ -1,17 +1,17 @@
 import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PageModel } from './page.model';
 import { PageService } from './page.service';
-import {RetrievePageService} from "./crud/retrieve-page.service";
-import {RetrievePageModel} from "./models/retrieve-page.model";
-import {CreatePageService} from "./crud/create-project.service";
-import {UpdateProjectService} from "./crud/update-project.service";
+import { RetrievePageService } from './services/crud/retrieve-page.service';
+import { RetrievePageModel } from './models/retrieve-page.model';
+import { CreatePageService } from './services/crud/create-page.service';
+import { UpdatePageService } from './services/crud/update-page.service';
 
 @Resolver(() => 'Project')
 export class PageResolver {
   constructor(
     private readonly retrievePageService: RetrievePageService,
     private readonly createPageService: CreatePageService,
-    private readonly updateProjectService: UpdateProjectService,
+    private readonly updateProjectService: UpdatePageService,
   ) {}
   @Query(() => RetrievePageModel, {
     description: '获取一个页面',
@@ -29,7 +29,7 @@ export class PageResolver {
     @Args('projectID', { type: () => String }) projectID: string,
     @Args('content', { type: () => String }) content: string,
   ): Promise<RetrievePageModel> {
-    return this.createPageService.invoke(projectID,content);
+    return this.createPageService.invoke(projectID, content);
   }
 
   @Mutation(() => RetrievePageModel, {
@@ -40,6 +40,6 @@ export class PageResolver {
     @Args('projectID', { type: () => String }) projectID: string,
     @Args('content', { type: () => String }) content: string,
   ): Promise<RetrievePageModel> {
-    return this.updateProjectService.invoke(pageID,projectID,content);
+    return this.updateProjectService.invoke(pageID, projectID, content);
   }
 }
