@@ -5,14 +5,13 @@ import { removeNullKeys } from '../../../utils';
 @Injectable()
 export class UpdateProjectService {
   constructor(private readonly prisma: PrismaService) {}
-  async invoke(pageID, projectID, content) {
-    return this.prisma.page.update({
+  async invoke(projectID, name) {
+    return this.prisma.project.update({
       where: {
-        id: pageID,
+        id: projectID,
       },
       data: removeNullKeys({
-        projectID,
-        content,
+        name,
       }),
     });
   }

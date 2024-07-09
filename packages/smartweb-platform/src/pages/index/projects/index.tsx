@@ -1,18 +1,12 @@
-import {Button, Table} from "antd";
+import { useMutation, useQuery } from '@apollo/client';
+import { Button, Table } from 'antd';
+
+import {
+  CreateProjectDocument,
+  ListProjectDocument,
+} from '../../../helpers/backend/gen/graphql.ts';
 
 const ProjectsPage = () => {
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-    }
-  ]
   const columns = [
     {
       title: 'Name',
@@ -34,12 +28,27 @@ const ProjectsPage = () => {
       title: '最近更新时间',
       dataIndex: 'updatedAt',
     },
-  ]
-  return <div>
-    <h1>Projects</h1>
-    <Button type={'primary'}>创建</Button>
-    <Table columns={columns} dataSource={dataSource}/>
-  </div>
-}
+  ];
+  const { data: listProjectDocumentData } = useQuery(ListProjectDocument);
+  const [createProject] = useMutation(CreateProjectDocument);
+  const nav = useNavigate();
+  return (
+    <div>
+      <h1>Projects</h1>
+      <Button
+        type={'primary'}
+        onClick={() => {
+          createProject().then((res) => {
+            console.log(res?.data?.createProject);
+            nav(`/projects/${res?.data?.createProject}`)
+          });
+        }}
+      >
+        创建
+      </Button>
+      <Table columns={columns} dataSource={listProjectDocumentData?.listProject} />
+    </div>
+  );
+};
 
-export default ProjectsPage
+export default ProjectsPage;
