@@ -8,6 +8,7 @@ import {
   UpdateProjectDocument,
 } from '../../../../helpers/backend/gen/graphql.ts';
 import TreeTest from './pages/helpers/TreeTest.tsx';
+import ProjectRouterEditor from "../../../../components/ProjectRouterEditor";
 type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
@@ -124,46 +125,8 @@ const PageDetail = () => {
           </Form.Item>
 
           <Form.Item label={'菜单'}>
-            <div className={'flex'}>
-              <div
-                className={'w-full p-5 bg-white'}
-                style={{ border: '1px solid rgb(232, 232, 232)' }}
-              >
-                <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
-                  面包屑
-                </div>
-                <div className={'mb-3'}>安徽省 / 合肥市 / 庐江县</div>
+            <ProjectRouterEditor></ProjectRouterEditor>
 
-                <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
-                  路径
-                </div>
-                <div className={'mb-3'}>/anhuisheng/hefeishi/lujingaxian</div>
-
-                <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
-                  编辑菜单
-                </div>
-                <TreeTest />
-              </div>
-              <div className={'w-[240px]  flex items-center justify-center'}>
-                <ArrowRightOutlined style={{ fontSize: '24px' }} />
-              </div>
-              <div
-                className={' px-10 py-5 bg-white'}
-                style={{ border: '1px solid rgb(232, 232, 232)' }}
-              >
-                <div className={'mb-2'} style={{ fontWeight: 'bolder' }}>
-                  预览菜单
-                </div>
-                <Menu
-                  // onClick={onClick}
-                  style={{ width: 256 }}
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1', 'sub2', 'sub3', 'sub4']}
-                  mode='inline'
-                  items={items}
-                />
-              </div>
-            </div>
           </Form.Item>
         </Form>
       )}

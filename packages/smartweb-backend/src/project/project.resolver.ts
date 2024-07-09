@@ -49,7 +49,8 @@ export class ProjectResolver {
   updateProject(
     @Args('projectID', { type: () => ID }) projectID: string,
     @Args('name', { type: () => String }) name: string,
+    @Args('router', { type: () => String }) router: string,
   ): Promise<RetrieveProjectModel> {
-    return this.updateProjectService.invoke(projectID, name);
+    return this.updateProjectService.invoke(projectID, name, router);
   }
 }

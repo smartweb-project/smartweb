@@ -62,7 +62,7 @@ type Mutation {
   createProject: String!
 
   """更新一个项目"""
-  updateProject(projectID: ID!, name: String!): RetrieveProjectModel!
+  updateProject(projectID: ID!, name: String!, router: String!): RetrieveProjectModel!
 
   """创建一个新页面"""
   createPage(projectID: String!, content: String!): RetrievePageModel!

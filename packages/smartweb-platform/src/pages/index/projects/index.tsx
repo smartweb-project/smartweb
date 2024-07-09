@@ -9,11 +9,15 @@ import {
 const ProjectsPage = () => {
   const columns = [
     {
-      title: 'Name',
+      title: 'ID',
+      dataIndex: 'id',
+    },
+    {
+      title: '名称',
       dataIndex: 'name',
     },
     {
-      title: 'Description',
+      title: '描述',
       dataIndex: 'description',
     },
     {
@@ -21,12 +25,22 @@ const ProjectsPage = () => {
       dataIndex: 'pageCount',
     },
     {
-      title: 'Creator',
+      title: '创建人',
       dataIndex: 'creator',
     },
     {
       title: '最近更新时间',
       dataIndex: 'updatedAt',
+    },
+    {
+      title: '操作',
+      render: (text: any, record: any) => {
+        return (
+          <div>
+            <a href={`/projects/${record.id}`}>查看</a>
+          </div>
+        );
+      },
     },
   ];
   const { data: listProjectDocumentData } = useQuery(ListProjectDocument);
@@ -40,7 +54,7 @@ const ProjectsPage = () => {
         onClick={() => {
           createProject().then((res) => {
             console.log(res?.data?.createProject);
-            nav(`/projects/${res?.data?.createProject}`)
+            nav(`/projects/${res?.data?.createProject}`);
           });
         }}
       >
